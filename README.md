@@ -27,7 +27,7 @@ Adding of roles is executed leveraging the `GET /groups/{groupID}/members`, base
 The removal of roles is executed by query the instance for all users with Elevated Permissions on the aforementioned custom field using `GET /people?propertyName={name}&propertyValue={value}`. Once the list of users and associated roles are returned, the process will then inspect each role and will then execute a `GET /people/{personID}/group-memberships` to determine if the user is a member of one of the associated role groups. It would be recommended that there is an external lock on custom fields to ensure users do not manually update this field. In a future state it would be preferred if the `GET /people?propertyName={name}&propertyValue={value}` was replaced by `GET /people?roles={name}` however that is dependent on an enhancement.
 
 ## Locations Impacted
-This process will query the Sites and populate a select set of List properties in xMatters with the address details for message sending purposes.
+This process will query the Sites and populate List properties in xMatters with the address details for the Sites. This is helpful for manual message sending purposes where Site information is needed in the message body.
 
 ## Site - Longitude & Latitude
 This process is used in conjunction with the EPIC sync process. EPIC does not currently update the latitude and longitude, this process will read from the Site_Input.csv and then update the associated Site. This should be scheduled to run after each EPIC sync.
