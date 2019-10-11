@@ -21,16 +21,13 @@ This process will synchronize user roles based on Group Membership affiliation. 
   }
 ```
 ### Adding of Roles
-Adding of roles is executed leveraging the `GET /groups/{groupID}/members`, based on the roster return the process will add the associated Role in the aforementioned JSON structure to the member of the Group. The add role process will also set a Custom Field to true, to identify that the user has Elevated Privileges. This is required for the removal which is discussed next.
+Adding of roles is executed leveraging the `GET /groups/{groupID}/members`, based on the roster return the process will add the associated Role in the aforementioned JSON structure to the member of the Group. The add role process will also set a Custom Field to true, to identify that the user has Elevated Permissions. This is required for the removal which is discussed next.
 
 ### Removal of Roles
-The removal of roles is executed by query the instance for all users with Elevated Privileges on the aforementioned custom field using `GET /people?propertyName={name}&propertyValue={value}`. Once the list of users and associated roles are returned, the process will then inspect each role and will then execute a `GET /people/{personID}/group-memberships` to determine if the user is a member of one of the associated role groups.
+The removal of roles is executed by query the instance for all users with Elevated Permissions on the aforementioned custom field using `GET /people?propertyName={name}&propertyValue={value}`. Once the list of users and associated roles are returned, the process will then inspect each role and will then execute a `GET /people/{personID}/group-memberships` to determine if the user is a member of one of the associated role groups. It would be recommended that there is an external lock on custom fields to ensure users do not manually update this field. In a future state it would be preferred if the `GET /people?propertyName={name}&propertyValue={value}` was replaced by `GET /people?roles={name}` however that is dependent on an enhancement.
 
 ## Locations Impacted
 This process will query the Sites and populate a select set of List properties in xMatters with the address details for message sending purposes.
-
-## Site - Longitude & Latitude
-This process is used in conjunction with the EPIC sync process. EPIC does not currently update the latitude and longitude, this process will read from the Site_Input.csv and then update the associated Site. This should be scheduled to run after each EPIC sync.
 
 ## Site - Longitude & Latitude
 This process is used in conjunction with the EPIC sync process. EPIC does not currently update the latitude and longitude, this process will read from the Site_Input.csv and then update the associated Site. This should be scheduled to run after each EPIC sync.
