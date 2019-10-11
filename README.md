@@ -7,15 +7,18 @@ Below are the following functions of the package.
 ## Role Sync
 This process will synchronize user roles based on Group Membership affiliation. This process will add roles when a user is present in a group and remove an associated role if they have been removed from a group. Group and Role relationship is defined via a JSON structure in a shared library, like so:
 ```
-{
-  "data": [{
-    "group": "xMatters Developers",
-    "roles": ["Developer", "Full Access User"]
-  }, {
-    "group": "xMatters Company Supervisor",
-    "roles": ["Company Supervisor"]
-  }]
-}
+  {
+    "data": [{
+      "group": "xMatters Developers",
+      "roles": ["Developer", "Full Access User"]
+    }, {
+      "group": "xMatters Company Supervisor",
+      "roles": ["Company Supervisor"]
+    }, {
+      "group": "xMatters Full Access User",
+      "roles": ["Full Access User"]
+    }]
+  }
 ```
 ### Adding of Roles
 Adding of roles is executed leveraging the `GET /groups/{groupID}/members`, based on the roster return the process will add the associated Role in the aforementioned JSON structure to the member of the Group. The add role process will also set a Custom Field to true, to identify that the user has Elevated Privileges. This is required for the removal which is discussed next.
