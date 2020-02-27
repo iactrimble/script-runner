@@ -5,26 +5,7 @@ This package contains utilities within xMatters. All items below require an xMat
 Below are the following functions of the package.
 
 ## Role - Scheduler
-This process will synchronize user roles based on Group Membership affiliation. This process will add roles when a user is present in a group and remove an associated role if they have been removed from a group. Group and Role relationship is defined via a JSON structure in a shared library, like so:
-```
-  {
-    "data": [{
-      "group": "xMatters Developers",
-      "roles": ["Developer", "Full Access User"]
-    }, {
-      "group": "xMatters Company Supervisor",
-      "roles": ["Company Supervisor"]
-    }, {
-      "group": "xMatters Full Access User",
-      "roles": ["Full Access User"]
-    }]
-  }
-```
-### Adding of Roles
-Adding of roles is executed leveraging the `GET /groups/{groupID}/members`, based on the roster return the process will add the associated Role in the aforementioned JSON structure to the member of the Group. The add role process will also update a custom field to identify that the user possesses Elevated Permissions. This is required for the removal which is discussed next.
-
-### Removal of Roles
-The removal of roles is executed by query the instance for all users with Elevated Permissions on the aforementioned custom field using `GET /people?propertyName={name}&propertyValue={value}`. Once the list of users and associated roles are returned, the process will then inspect each role and will then execute a `GET /people/{personID}/group-memberships` to determine if the user is a member of one of the associated role groups. It would be recommended that there is an external lock on custom fields to ensure users do not manually update this field. In a future state it would be preferred if the `GET /people?propertyName={name}&propertyValue={value}` was replaced by `GET /people?roles={name}` however that is dependent on an enhancement.
+This initiates the process documented here: https://github.com/matthewhenry1/role-sync-py
 
 ## Locations Field - Scheduler
 This process will query the Sites and populate List properties in xMatters with the address details for the Sites. This is helpful for manual message sending purposes where Site information is needed in the message body.
